@@ -19,5 +19,20 @@ maxList([Head|Rest], Max) :-
     Max = Max1,
     !.
 
+removeElem(_, [], []) :- !.
+removeElem(Elem, [Head|Rest], Rest) :-
+    Elem is Head,
+    !.
+removeElem(Elem, [Head|Rest], [Head|List2]) :-
+    removeElem(Elem, Rest, List2).
+    
+sortNaive(List1, SortedList) :-
+    sortNaiveSub(List1, ReverseSortedList),
+    reverseList(ReverseSortedList, SortedList).
+sortNaiveSub([],[]) :- !.
+sortNaiveSub(List, [Max|SortedList1]) :-
+    maxList(List, Max),
+    removeElem(Max, List, List1),
+    sortNaiveSub(List1, SortedList1).
     
     
