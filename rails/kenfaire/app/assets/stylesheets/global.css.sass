@@ -1,0 +1,57 @@
+$image-size: 150px
+$content-height: 500px
+$footer-height: 50px
+
+body.body
+  background: url('recyclage.png')
+  background-repeat: repeat
+  background-color: black
+
+.ulcorner
+  background: url('recyclage.png')
+  background-size: cover
+
+  background-color: #F9C498
+
+  -moz-border-radius: 30px 0 0 0
+  -webkit-border-radius: 30px 0 0 0
+  border-radius: 30px 0 0 0
+
+  width: $image-size
+  height: $image-size
+
+  float: left
+
+.titlebar
+  background-color: lighten(gray,20%)
+  height: $image-size
+
+  -moz-border-radius: 0 30px 0 0
+  -webkit-border-radius: 0 30px 0 0
+  border-radius: 0 30px 0 0
+
+  overflow: hidden
+
+.leftmenu
+  background-color: lighten(green,30%)
+  width: $image-size
+  height: $content-height
+
+  float: left
+
+.content
+  background-color: white
+
+  height: $content-height
+
+  overflow: scroll
+
+.footer
+  background-color: lighten(green,30%)
+  height: $footer-height
+
+  -moz-border-radius: 0 0 30px 30px
+  -webkit-border-radius: 0 0 30px 30px
+  border-radius: 0 0 30px 30px
+
+  clear: both

@@ -1,0 +1,16 @@
+Paris:
+  name: "Paris"
+  city_id: 1
+  distance: 0
+
+Geneve:
+  name: "Genève"
+  city_id: 2
+  distance: 0
+
+Gex:
+  name: "Gex"
+  city_id: 2
+  distance: 20
+
+
