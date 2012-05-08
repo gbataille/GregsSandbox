@@ -1,17 +1,36 @@
 $image-size: 150px
-$content-height: 500px
+$content-height: 600px
 $footer-height: 50px
+$color-brownish: #F9C498
+
+$padding-menu: 4px
+$padding-content: 10px
+
+@mixin menutheme
+  background-color: $color-brownish
+  padding: 4px
 
 body.body
   background: url('recyclage.png')
   background-repeat: repeat
-  background-color: black
+  background-color: white
+
+.pagecontent
+  margin: 50px 50px 20px 20px
+
+  -moz-border-radius: 30px
+  -webkit-border-radius: 30px
+  border-radius: 30px
+
+  -moz-box-shadow: 5px 5px 15px 3px rgba(0, 0, 0, .6)
+  -webkit-box-shadow: 5px 5px 15px 3px rgba(0, 0, 0, .6)
+  box-shadow: 5px 5px 15px 3px rgba(0, 0, 0, .6)
 
 .ulcorner
   background: url('recyclage.png')
   background-size: cover
 
-  background-color: #F9C498
+  @include menutheme
 
   -moz-border-radius: 30px 0 0 0
   -webkit-border-radius: 30px 0 0 0
@@ -23,7 +42,8 @@ body.body
   float: left
 
 .titlebar
-  background-color: lighten(gray,20%)
+  @include menutheme
+
   height: $image-size
 
   -moz-border-radius: 0 30px 0 0
@@ -33,21 +53,23 @@ body.body
   overflow: hidden
 
 .leftmenu
-  background-color: lighten(green,30%)
+  @include menutheme
   width: $image-size
-  height: $content-height
+  height: $content-height - (2 * $padding-menu)
 
   float: left
 
 .content
-  background-color: white
 
-  height: $content-height
+  background-color: white
+  padding: 10px
+
+  height: $content-height - (2 * $padding-content)
 
   overflow: scroll
 
 .footer
-  background-color: lighten(green,30%)
+  @include menutheme
   height: $footer-height
 
   -moz-border-radius: 0 0 30px 30px

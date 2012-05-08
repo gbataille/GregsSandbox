@@ -1,2 +1,0 @@
-class Offer < Post
-end

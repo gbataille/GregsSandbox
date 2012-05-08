@@ -13,20 +13,10 @@
 
 ActiveRecord::Schema.define(:version => 20120430084955) do
 
-  create_table "cities", :force => true do |t|
-    t.string   "name",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "towns", :force => true do |t|
     t.string   "name",       :null => false
-    t.integer  "city_id",    :null => false
-    t.integer  "distance",   :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  add_index "towns", ["city_id"], :name => "index_towns_on_city_id"
 
 end
