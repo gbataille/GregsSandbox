@@ -1,4 +1,4 @@
-$image-size: 150px
+$image-size: 100px
 $content-height: 600px
 $footer-height: 50px
 $color-brownish: #F9C498
@@ -14,6 +14,9 @@ body.body
   background: url('recyclage.png')
   background-repeat: repeat
   background-color: white
+
+span.errors
+  background-color: red
 
 .pagecontent
   margin: 50px 50px 20px 20px
@@ -46,12 +49,19 @@ body.body
 
   height: $image-size
 
+  overflow: hidden
+
+.topright
+  @include menutheme
+
+  height: $image-size
+  width: $image-size
+
   -moz-border-radius: 0 30px 0 0
   -webkit-border-radius: 0 30px 0 0
   border-radius: 0 30px 0 0
 
-  overflow: hidden
-
+  float: right
 .leftmenu
   @include menutheme
   width: $image-size
