@@ -12,9 +12,16 @@
       .ulcorner
       .topright
         %h2 login
-      .titlebar
-        %h2
-          KenFaire?
+      .topcenter
+        .titlebar
+          %h2
+            KenFaire?
+        .menubar
+          |
+          =link_to 'Home', root_url
+          |
+          =link_to 'Users', users_path
+          |
       .leftmenu
         leftmenu
         %br

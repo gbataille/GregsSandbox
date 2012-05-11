@@ -8,7 +8,7 @@ $padding-content: 10px
 
 @mixin menutheme
   background-color: $color-brownish
-  padding: 4px
+  padding: $padding-menu
 
 body.body
   background: url('recyclage.png')
@@ -44,12 +44,22 @@ span.errors
 
   float: left
 
-.titlebar
+.topcenter
   @include menutheme
 
   height: $image-size
 
   overflow: hidden
+
+.titlebar
+  @include menutheme
+
+  height: 70%
+
+.menubar
+  @include menutheme
+
+  height: 30%
 
 .topright
   @include menutheme
