@@ -3,7 +3,6 @@ Kenfaire::Application.routes.draw do
 
   get "home/index"
 
-  get 'towns/index'
 	# The priority is based upon order of creation:
   # first created -> highest priority.
 
