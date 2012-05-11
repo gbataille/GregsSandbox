@@ -1,0 +1,99 @@
+$image-size: 100px
+$content-height: 600px
+$footer-height: 50px
+$color-brownish: #F9C498
+
+$padding-menu: 4px
+$padding-content: 10px
+
+@mixin menutheme
+  background-color: $color-brownish
+  padding: $padding-menu
+
+body.body
+  background: url('recyclage.png')
+  background-repeat: repeat
+  background-color: white
+
+span.errors
+  background-color: red
+
+.pagecontent
+  margin: 50px 50px 20px 20px
+
+  -moz-border-radius: 30px
+  -webkit-border-radius: 30px
+  border-radius: 30px
+
+  -moz-box-shadow: 5px 5px 15px 3px rgba(0, 0, 0, .6)
+  -webkit-box-shadow: 5px 5px 15px 3px rgba(0, 0, 0, .6)
+  box-shadow: 5px 5px 15px 3px rgba(0, 0, 0, .6)
+
+.ulcorner
+  background: url('recyclage.png')
+  background-size: cover
+
+  @include menutheme
+
+  -moz-border-radius: 30px 0 0 0
+  -webkit-border-radius: 30px 0 0 0
+  border-radius: 30px 0 0 0
+
+  width: $image-size
+  height: $image-size
+
+  float: left
+
+.topcenter
+  @include menutheme
+
+  height: $image-size
+
+  overflow: hidden
+
+.titlebar
+  @include menutheme
+
+  height: 70%
+
+.menubar
+  @include menutheme
+
+  height: 30%
+
+.topright
+  @include menutheme
+
+  height: $image-size
+  width: $image-size
+
+  -moz-border-radius: 0 30px 0 0
+  -webkit-border-radius: 0 30px 0 0
+  border-radius: 0 30px 0 0
+
+  float: right
+.leftmenu
+  @include menutheme
+  width: $image-size
+  height: $content-height - (2 * $padding-menu)
+
+  float: left
+
+.content
+
+  background-color: white
+  padding: 10px
+
+  height: $content-height - (2 * $padding-content)
+
+  overflow: scroll
+
+.footer
+  @include menutheme
+  height: $footer-height
+
+  -moz-border-radius: 0 0 30px 30px
+  -webkit-border-radius: 0 0 30px 30px
+  border-radius: 0 0 30px 30px
+
+  clear: both
