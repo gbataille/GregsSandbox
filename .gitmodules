@@ -1,3 +1,0 @@
-[submodule "rails/kenfaire"]
-	path = rails/kenfaire
-	url = git://github.com/gbataille/kenfaire.git
