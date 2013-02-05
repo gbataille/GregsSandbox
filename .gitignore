@@ -1,1 +1,3 @@
 *.beam
+CommonLisp/LandOfLisp/*.dot
+CommonLisp/LandOfLisp/*.png
