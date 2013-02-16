@@ -1,7 +1,7 @@
 (defparameter *player-health* nil)
 (defparameter *player-agility* nil)
 (defparameter *player-strength* nil)
-(defparameter *mansters* nil)
+(defparameter *monsters* nil)
 (defparameter *monster-builders* nil)
 (defparameter *monster-num* 12)
 
@@ -19,7 +19,7 @@
 (defun game-loop ()
   (unless (or (player-dead) (monsters-dead))
     (show-player)
-    (dotimes (k (1+ (truncate (/ (max 0 *player-agility) 15))))
+    (dotimes (k (1+ (truncate (/ (max 0 *player-agility*) 15))))
       (unless (monsters-dead)
         (show-monsters)
         (player-attack)))
@@ -77,11 +77,11 @@
   (fresh-line)
   (princ "Monster #:")
   (let ((x (read)))
-    (if (not (and (integerp x) (>= x 1) (<= x *monsters-num*)))
+    (if (not (and (integerp x) (>= x 1) (<= x *monster-num*)))
       (progn (princ "That is not a valid monster number.")
              (pick-monster))
       (let ((m (aref *monsters* (1- x))))
-        (if (monster-dead)
+        (if (monster-dead m)
           (progn (princ "That monster is already dead.")
                  (pick-monster))
           m)))))
@@ -91,7 +91,7 @@
         (map 'vector
              (lambda (x)
                (funcall (nth (random (length *monster-builders*))
-                             *monster-builder*)))
+                             *monster-builders*)))
              (make-array *monster-num*))))
 
 (defun monster-dead (m)
@@ -154,7 +154,7 @@
 
 ; Hydra definition
 (defstruct (hydra (:include monster)))
-(push *monster-builder* #'make-hydra)
+(push #'make-hydra *monster-builders*)
 
 (defmethod monster-show ((m hydra))
   (princ "A malicious hydra with ")
