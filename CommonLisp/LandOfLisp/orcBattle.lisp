@@ -164,7 +164,8 @@
 (defmethod monster-hit ((m hydra) x)
   (decf (monster-health m) x)
   (if (monster-dead m)
-    (princ "The corpse of the fully decapitated and decapacitated hydra falls to the floor!")
+    (princ "The corpse of the fully decapitated and decapacitated hydra falls
+           to the floor!")
     (progn (princ "You lop off ")
            (princ x)
            (princ " of the hydra's heads! "))))
@@ -183,7 +184,7 @@
 (push #'make-slime-mold *monster-builders*)
 
 (defmethod monster-show ((m slime-mold))
-  (princ "A slime mold with a sliminess of ")
+  (princ "A slime mold with a sliminess of "
   (princ (slime-mold-sliminess m)))
 
 (defmethod monster-attack ((m slime-mold))
