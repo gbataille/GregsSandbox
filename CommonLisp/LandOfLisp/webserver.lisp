@@ -65,6 +65,7 @@
       (socket-server-close socket))))
 
 (defun hello-request-handler (path header params)
+  (declare (ignore header))
   (if (equal path "greeting")
     (let ((name (assoc 'name params)))
       (if (not name)
