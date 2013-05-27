@@ -1,0 +1,29 @@
+package main
+
+import (
+  "gxbUtils"
+)
+
+func main() {
+  // CONFIG TO DO EVERY TIME
+  headerLines := 1
+  caseSize := 3
+
+  filename := gxbUtils.SetupEnv()
+
+  header, problems := gxbUtils.ReadInputFile(filename, headerLines, caseSize)
+  solutions := make([][]string, len(problems), len(problems))
+
+  i := 0
+  for i < len(problems) {
+    solutions[i] = handleCase(problems[i])
+    i += 1
+  }
+
+  gxbUtils.OutputResults(solutions, filename)
+}
+
+func handleCase(pb []string) []string {
+  // If we reach here, we have not found the solution
+  return nil
+}
