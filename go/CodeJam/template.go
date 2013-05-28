@@ -7,11 +7,11 @@ import (
 func main() {
   // CONFIG TO DO EVERY TIME
   headerLines := 1
-  caseSize := 3
+  caseSize := 1
 
   filename := gxbUtils.SetupEnv()
 
-  header, problems := gxbUtils.ReadInputFile(filename, headerLines, caseSize)
+  _, problems := gxbUtils.ReadInputFile(filename, headerLines, caseSize)
   solutions := make([][]string, len(problems), len(problems))
 
   i := 0
@@ -24,6 +24,5 @@ func main() {
 }
 
 func handleCase(pb []string) []string {
-  // If we reach here, we have not found the solution
   return nil
 }
