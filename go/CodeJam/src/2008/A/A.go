@@ -9,8 +9,9 @@ import (
 
 func main() {
   // CONFIG TO DO EVERY TIME
-  headerLines := 1
-  caseSize := 3
+  const headerLines int   = 1
+  const caseSize int      = 3
+
   filename := gxbUtils.SetupEnv()
 
   _, problems := gxbUtils.ReadInputFile(filename, headerLines, caseSize)

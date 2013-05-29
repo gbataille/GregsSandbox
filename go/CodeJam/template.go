@@ -1,26 +1,29 @@
 package main
 
 import (
-  "gxbUtils"
+  "gxbUtils";
+  // "strconv";
+  // "strings";
+  // "math";
+  "fmt"
 )
 
 func main() {
   // CONFIG TO DO EVERY TIME
-  headerLines := 1
-  caseSize := 1
+  const headerLines int   = 1
+  const caseSize int      = 3
 
+  fmt.Println("-- Start")
   filename := gxbUtils.SetupEnv()
-
   _, problems := gxbUtils.ReadInputFile(filename, headerLines, caseSize)
   solutions := make([][]string, len(problems), len(problems))
 
-  i := 0
-  for i < len(problems) {
+  for i := 0; i < len(problems); i++ {
     solutions[i] = handleCase(problems[i])
-    i += 1
   }
 
   gxbUtils.OutputResults(solutions, filename)
+  fmt.Println("-- Done")
 }
 
 func handleCase(pb []string) []string {
