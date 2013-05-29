@@ -16,10 +16,8 @@ func main() {
   _, problems := gxbUtils.ReadInputFile(filename, headerLines, caseSize)
   solutions := make([][]string, len(problems), len(problems))
 
-  i := 0
-  for i < len(problems) {
+  for i := 0; i < len(problems); i++ {
     solutions[i] = handleCase(problems[i])
-    i += 1
   }
 
   gxbUtils.OutputResults(solutions, filename)
@@ -31,23 +29,17 @@ func handleCase(pb []string) []string {
   ystring := strings.Split(pb[2], " ")
   x := make([]int, nbValues, nbValues)
   y := make([]int, nbValues, nbValues)
-  i := 0
-  for i < nbValues {
+  for i := 0; i < nbValues; i++ {
     x[i], _ = strconv.Atoi(xstring[i])
     y[i], _ = strconv.Atoi(ystring[i])
-    i += 1
   }
   sort.IntSlice(x).Sort()
   sort.IntSlice(y).Sort()
 
-  i = 0
   product := 0
-  for i < len(y) {
-    // yinv[i] = y[len(y)-1-i]
+  for i := 0; i < len(y); i++ {
     product += x[i]*y[len(y) - 1 - i]
-    i += 1
   }
 
-  sval := strconv.Itoa(product)
-  return []string{sval}
+  return []string{strconv.Itoa(product)}
 }
