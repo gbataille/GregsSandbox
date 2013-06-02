@@ -26,6 +26,6 @@ func main() {
   fmt.Println("-- Done")
 }
 
-func handleCase(pb [][]string) []string {
+func handleCase(pb []string) []string {
   return nil
 }
