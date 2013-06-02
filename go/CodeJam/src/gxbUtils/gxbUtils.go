@@ -148,11 +148,28 @@ func ReadInputFileWithVariablePbSizesInAnArray(
 
   return header, cases
 }
+
 func ReadInputFileWithVariablePbSizes(filename string,  nbHeaderLines int, 
   caseSizeIndex int) (header []string, cases [][][]string) {
 
   return ReadInputFileWithVariablePbSizesInAnArray(filename, nbHeaderLines,
     caseSizeIndex, 0)
+}
+
+func StringSliceToIntSlice(sSlice []string) []int {
+  iSlice := make([]int, len(sSlice), len(sSlice))
+  for i:=0; i < len(sSlice); i++ {
+    iSlice[i], _ = strconv.Atoi(sSlice[i])
+  }
+  return iSlice
+}
+
+func IntSliceToStringSlice(iSlice []int) []string {
+  sSlice := make([]string, len(iSlice), len(iSlice))
+  for i:=0; i < len(iSlice); i++ {
+    sSlice[i] = strconv.Itoa(iSlice[i])
+  }
+  return sSlice
 }
 
 func manual() {
