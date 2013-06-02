@@ -1,7 +1,7 @@
 package main
 
 import (
-  "gxbUtils";
+  "gxbUtilsOld";
   "strconv";
   "strings";
   "sort"
@@ -12,16 +12,16 @@ func main() {
   const headerLines int   = 1
   const caseSize int      = 3
 
-  filename := gxbUtils.SetupEnv()
+  filename := gxbUtilsOld.SetupEnv()
 
-  _, problems := gxbUtils.ReadInputFile(filename, headerLines, caseSize)
+  _, problems := gxbUtilsOld.ReadInputFile(filename, headerLines, caseSize)
   solutions := make([][]string, len(problems), len(problems))
 
   for i := 0; i < len(problems); i++ {
     solutions[i] = handleCase(problems[i])
   }
 
-  gxbUtils.OutputResults(solutions, filename)
+  gxbUtilsOld.OutputResults(solutions, filename)
 }
 
 func handleCase(pb []string) []string {

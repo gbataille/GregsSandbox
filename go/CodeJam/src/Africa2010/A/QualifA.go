@@ -1,7 +1,7 @@
 package main
 
 import (
-  "gxbUtils";
+  "gxbUtilsOld";
   "strings";
   "strconv"
 )
@@ -11,9 +11,9 @@ func main() {
   headerLines := 1
   caseSize := 3
 
-  filename := gxbUtils.SetupEnv()
+  filename := gxbUtilsOld.SetupEnv()
 
-  _, problems := gxbUtils.ReadInputFile(filename, headerLines, caseSize)
+  _, problems := gxbUtilsOld.ReadInputFile(filename, headerLines, caseSize)
   solutions := make([][]string, len(problems), len(problems))
 
   i := 0
@@ -23,7 +23,7 @@ func main() {
     i += 1
   }
 
-  gxbUtils.OutputResults(solutions, filename)
+  gxbUtilsOld.OutputResults(solutions, filename)
 }
 
 func handleCase(pb []string) []string {

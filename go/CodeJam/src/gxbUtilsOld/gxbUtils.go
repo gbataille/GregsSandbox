@@ -1,4 +1,4 @@
-package gxbUtils
+package gxbUtilsOld
 
 import (
   "fmt";
@@ -97,6 +97,58 @@ func ReadInputFile(filename string,  headerLines int,
   return header, cases
 }
 
+func ReadInputFileWithVariablePbSizesInAnArray(
+  filename string,  headerLines int, caseSizeIndex int, 
+  caseSizeIndexInArray int) (header []string, cases [][]string) {
+
+  fi, err := os.Open(filename)
+  if err != nil { panic(err) }
+  // close fi on exit and check for its returned error
+  defer func() {
+    if err := fi.Close(); err != nil {
+      panic(err)
+    }
+  }()
+
+  s := bufio.NewScanner(bufio.NewReader(fi))
+
+  // Parses the header
+  i := 1
+  for i <= headerLines {
+    ok := s.Scan()
+    if !ok {
+      panic("cannot read file header\n")
+    }
+    header = append(header, s.Text())
+    i += 1
+  }
+
+  nbCases, _ := strconv.Atoi(header[0])
+
+  for j := 0; j < nbCases; j++ {
+    var curCase[]string
+    for k := 0; k < caseSizeIndex; k++ {
+      ok := s.Scan()
+      if !ok {
+        panic(s.Err())
+      }
+      curCase= append(curCase, s.Text())
+    }
+    // We have reached the place where we know how many more lines there is to parse
+    lineWithCaseSize := strings.Split(curCase[caseSizeIndex-1], " ")
+    caseSize, _ := strconv.Atoi(lineWithCaseSize[caseSizeIndexInArray - 1])
+    for k := 0; k < caseSize; k++ {
+      ok := s.Scan()
+      if !ok {
+        panic(s.Err())
+      }
+      curCase= append(curCase, s.Text())
+    }
+    cases = append(cases, curCase)
+  }
+
+  return header, cases
+}
 func ReadInputFileWithVariablePbSizes(filename string,  headerLines int, 
   caseSizeIndex int) (header []string, cases [][]string) {
 
