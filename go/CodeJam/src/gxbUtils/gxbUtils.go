@@ -135,7 +135,7 @@ func ReadInputFileWithVariablePbSizesInAnArray(
       curCase= append(curCase, strings.Split(s.Text(), " "))
     }
     // We have reached the place where we know how many more lines there is to parse
-    caseSize, _ := strconv.Atoi(curCase[caseSizeIndexInArray - 1][caseSizeIndexInArray])
+    caseSize, _ := strconv.Atoi(curCase[len(curCase)-1][caseSizeIndexInArray])
     for k := 0; k < caseSize; k++ {
       ok := s.Scan()
       if !ok {
