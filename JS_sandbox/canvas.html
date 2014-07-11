@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title>Canvas</title>
+    <!-- <script type="text/javascript"  -->
+    <!--   src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+    <!-- <script src="canvas.js"></script> -->
+  </head>
+  <body>
+    <h1>Canvas tests</h1>
+    <canvas id="myCanvas" width="400" height="400" style="border: 1px solid #000;">
+    </canvas>
+    <script>
+      var canvas = document.getElementById("myCanvas");
+      var ctx = canvas.getContext("2d");
+      console.log(ctx);
+      ctx.fillStyle = "#FF0000";
+      ctx.fillRect(0,0,150,75);
+      ctx.moveTo(0, 80);
+      ctx.lineTo(50, 85);
+      ctx.lineTo(50, 150);
+      ctx.stroke();
+    </script>
+  </body>
+</html>
