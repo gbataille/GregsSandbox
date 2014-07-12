@@ -1,5 +1,5 @@
 #!/usr/local/bin/python3
-from math import sqrt, pow
+from math import sqrt, pow, fabs
 
 def readCase1():
     a = input()
@@ -17,8 +17,12 @@ def readCase3():
 L = int(input())
 R = int(input())
 
-nbits = int(sqrt(R)) + 1
-maxxor = pow(2, nbits) - 1
+maxxor = 0
+
+for i in range(L, R+1):
+    for j in range(L,R+1):
+        if i^j > maxxor:
+            maxxor = i^j
 
 ################
 print(int(maxxor))
