@@ -1,0 +1,91 @@
+#!/usr/local/bin/python3
+import urllib.request
+import sys
+import json
+import re
+import os
+
+def main(argv = None):
+    if argv is None:
+        argv = sys.argv
+
+    INPUT_TEXT       = "SAMPLE INPUT"
+    OUTPUT_TEXT      = "SAMPLE OUTPUT"
+    EXPLANATION      = "EXPLANATION"
+    BASE_URL         = "https://www.hackerrank.com/rest/contests/master/challenges/"
+    FILE_SUFFIX_CODE = ".py"
+    FILE_SUFFIX_IN   = "_test.in"
+    FILE_SUFFIX_OUT  = "_test.out"
+
+    if len(sys.argv) > 1:
+        pbName = sys.argv[1]
+    else:
+        print ("Need one argument")
+        sys.exit()
+
+    httpObj    = urllib.request.urlopen(BASE_URL + pbName)
+    jsonStream = httpObj.read()
+    jsonData   = json.loads(jsonStream.decode())
+    # Clean up
+    httpObj.close()
+
+    pythonCodeTemplate = """\
+#!/usr/local/bin/python3
+
+import sys
+
+def main(argv = None):
+    if argv is None:
+        argv = sys.argv
+
+
+
+# Invoking the program entry point
+if __name__ == "__main__":
+    sys.exit(main())
+"""
+
+    fname = getFileName(pbName)
+
+    fcode = open(fname + FILE_SUFFIX_CODE, 'w')
+    fcode.write(pythonCodeTemplate)
+    os.chmod(fname + FILE_SUFFIX_CODE, 0o744)       # Permissions have to be in octal
+    fcode.close()
+
+    # Have to check, the JSON is not always the same
+    if "model" in jsonData:
+        if "_data" in jsonData["model"]:
+            if "python3_template" in jsonData["model"]["_data"]:
+                pythonCodeTemplate += jsonData["model"]["_data"]["python3_template"]
+
+    body  = jsonData["model"]["body_html"]
+    start = body.upper().index(INPUT_TEXT)
+    end   = body.upper().index(EXPLANATION)
+    body  = body[start:end]
+
+    startInput  = body.index("<code>")
+    endInput    = body.index("</code>")
+    sampleInput = body[(startInput+6):endInput]
+    fin         = open(fname + FILE_SUFFIX_IN, 'w')
+    fin.write(sampleInput)
+    fin.close
+
+    start        = body.upper().index(OUTPUT_TEXT)
+    body         = body[start:]
+    startOutput  = body.index("<code>")
+    endOutput    = body.index("</code>")
+    sampleOutput = body[(startOutput+6):endOutput]
+    fout         = open(fname + FILE_SUFFIX_OUT, 'w')
+    fout.write(sampleOutput)
+    fout.close
+
+def getFileName(pbName):
+    pbName = pbName.replace('-', '_')
+    return to_camelcase(pbName)
+
+def to_camelcase(s):
+    return re.sub(r'(?!^)_([a-zA-Z])', lambda m: m.group(1).upper(), s)
+
+# Invoking the program entry point
+if __name__ == "__main__":
+    sys.exit(main())

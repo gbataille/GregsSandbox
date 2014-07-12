@@ -23,7 +23,7 @@ call("python3 " + script, stdin=fin, stdout=fout, shell=True)
 # Compares the output to the expected result
 fileDiff = "temp_diff"
 fdiff = open(fileDiff, 'w')
-call("diff " + actualOutputTest + " " + expectedOutputTest, stdout=fdiff, shell=True)
+call("diff -b " + actualOutputTest + " " + expectedOutputTest, stdout=fdiff, shell=True)
 
 # Gets the pass / fail
 s = os.stat(fileDiff)
