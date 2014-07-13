@@ -50,7 +50,7 @@ if __name__ == "__main__":
     fcode = open(fname + FILE_SUFFIX_CODE, 'w')
     fcode.write(pythonCodeTemplate)
     os.chmod(fname + FILE_SUFFIX_CODE, 0o744)       # Permissions have to be in octal
-    print("In file " + fcode.name())
+    print("In file " + fname + FILE_SUFFIX_CODE)
     print("\n" + pythonCodeTemplate + "\n\n")
     fcode.close()
 
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     sampleInput = body[(startInput+6):endInput]
     fin         = open(fname + FILE_SUFFIX_IN, 'w')
     fin.write(sampleInput)
-    print("In file " + fin.name())
+    print("In file " + fname + FILE_SUFFIX_IN)
     print("\n" + sampleInput + "\n\n")
     fin.close
 
@@ -81,7 +81,7 @@ if __name__ == "__main__":
     sampleOutput = body[(startOutput+6):endOutput]
     fout         = open(fname + FILE_SUFFIX_OUT, 'w')
     fout.write(sampleOutput)
-    print("In file " + fout.name())
+    print("In file " + fname + FILE_SUFFIX_OUT)
     print("\n" + sampleOutput + "\n\n")
     fout.close
 
