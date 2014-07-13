@@ -5,17 +5,18 @@ import json
 import re
 import os
 
+INPUT_TEXT       = "SAMPLE INPUT"
+OUTPUT_TEXT      = "SAMPLE OUTPUT"
+EXPLANATION      = "EXPLANATION"
+BASE_URL         = "https://www.hackerrank.com/rest/contests/master/challenges/"
+FILE_SUFFIX_CODE = ".py"
+FILE_SUFFIX_TEST = "_test"
+FILE_EXT_IN      = ".in"
+FILE_EXT_OUT     = ".out"
+
 def main(argv = None):
     if argv is None:
         argv = sys.argv
-
-    INPUT_TEXT       = "SAMPLE INPUT"
-    OUTPUT_TEXT      = "SAMPLE OUTPUT"
-    EXPLANATION      = "EXPLANATION"
-    BASE_URL         = "https://www.hackerrank.com/rest/contests/master/challenges/"
-    FILE_SUFFIX_CODE = ".py"
-    FILE_SUFFIX_IN   = "_test.in"
-    FILE_SUFFIX_OUT  = "_test.out"
 
     if len(sys.argv) > 1:
         pbName = sys.argv[1]
@@ -61,16 +62,24 @@ if __name__ == "__main__":
                 pythonCodeTemplate += jsonData["model"]["_data"]["python3_template"]
 
     body  = jsonData["model"]["body_html"]
-    start = body.upper().index(INPUT_TEXT)
-    end   = body.upper().index(EXPLANATION)
-    body  = body[start:end]
+
+    useCaseNumber = 0
+    while body.upper().find(INPUT_TEXT) != -1:
+        body = parseUseCase(body, fname, useCaseNumber)
+        useCaseNumber += 1
+
+def parseUseCase(content, fname, number):
+    start = content.upper().index(INPUT_TEXT)
+    end   = content.upper().index(EXPLANATION)
+    body  = content[start:end]
 
     startInput  = body.index("<code>")
     endInput    = body.index("</code>")
     sampleInput = body[(startInput+6):endInput]
-    fin         = open(fname + FILE_SUFFIX_IN, 'w')
+    finname     = fname + FILE_SUFFIX_TEST + str(number) + FILE_EXT_IN
+    fin         = open(finname, 'w')
     fin.write(sampleInput)
-    print("In file " + fname + FILE_SUFFIX_IN)
+    print("In file " + finname)
     print("\n" + sampleInput + "\n\n")
     fin.close
 
@@ -79,11 +88,14 @@ if __name__ == "__main__":
     startOutput  = body.index("<code>")
     endOutput    = body.index("</code>")
     sampleOutput = body[(startOutput+6):endOutput]
-    fout         = open(fname + FILE_SUFFIX_OUT, 'w')
+    foutname     = fname + FILE_SUFFIX_TEST + str(number) + FILE_EXT_OUT
+    fout         = open(foutname, 'w')
     fout.write(sampleOutput)
-    print("In file " + fname + FILE_SUFFIX_OUT)
+    print("In file " + foutname)
     print("\n" + sampleOutput + "\n\n")
     fout.close
+
+    return content[end + len(EXPLANATION):]
 
 def getFileName(pbName):
     pbName = pbName.replace('-', '_')

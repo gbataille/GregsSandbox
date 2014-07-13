@@ -1,43 +1,64 @@
 #!/usr/local/bin/python3
 import sys
 import os
+from glob import glob
 from subprocess import call
 from termcolor import colored, cprint
 
-if (len(sys.argv) > 1):
-    problemName = sys.argv[1]
-else:
-    print("You must pass a problem name as parameter")
-    sys.exit()
+SCRIPT_EXTENSION      = '.py'
+TEST_FILE_PATTERN     = '_test'
+INPUT_FILE_EXTENSION  = '.in'
+OUTPUT_FILE_EXTENSION = '.out'
 
-script             = problemName + '.py'
-inputTest          = problemName + '_test.in'
-expectedOutputTest = problemName + '_test.out'
-actualOutputTest   = problemName + '_run.out'
+def main(argv = None):
+    if argv is None:
+        argv = sys.argv
 
-# Executes the script
-fin  = open(inputTest, 'r')
-fout = open(actualOutputTest, 'w')
-call("python3 " + script, stdin=fin, stdout=fout, shell=True)
+    if (len(sys.argv) > 1):
+        problemName = sys.argv[1]
+    else:
+        print("You must pass a problem name as parameter")
+        sys.exit()
 
-# Compares the output to the expected result
-fileDiff = "temp_diff"
-fdiff = open(fileDiff, 'w')
-call("diff -b " + actualOutputTest + " " + expectedOutputTest, stdout=fdiff, shell=True)
+    for file in glob(problemName + TEST_FILE_PATTERN + "*" + INPUT_FILE_EXTENSION):
+        useCaseID = file[len(problemName + TEST_FILE_PATTERN):file.index(INPUT_FILE_EXTENSION)]
+        executeUseCase(problemName, useCaseID)
 
-# Gets the pass / fail
-s = os.stat(fileDiff)
-if s.st_size == 0:
-    cprint( "Success", "green" )
-else:
-    cprint( "Failure", "red" )
+def executeUseCase(pbName, useCase):
+    print("Testing " + pbName + " #" + useCase)
 
-# Cleans up
-fin.close()
-fout.close()
-fdiff.close()
+    ACTUAL_OUTPUT_SUFFIX = "_run.out"
+    test_input_file_name           = pbName + TEST_FILE_PATTERN + useCase + INPUT_FILE_EXTENSION
+    test_actual_output_file_name   = pbName + TEST_FILE_PATTERN + useCase + ACTUAL_OUTPUT_SUFFIX
+    test_expected_output_file_name = pbName + TEST_FILE_PATTERN + useCase + OUTPUT_FILE_EXTENSION
 
-os.remove(actualOutputTest)
-os.remove(fileDiff)
+    # Executes the script
+    fin  = open(test_input_file_name, 'r')
+    fout = open(test_actual_output_file_name, 'w')
+    call("python3 " + pbName + SCRIPT_EXTENSION, stdin=fin, stdout=fout, shell=True)
+
+    # Compares the output to the expected result
+    fileDiff = "temp_diff"
+    fdiff = open(fileDiff, 'w')
+    call("diff -b " + test_actual_output_file_name + " " + test_expected_output_file_name, stdout=fdiff, shell=True)
+
+    # Gets the pass / fail
+    s = os.stat(fileDiff)
+    if s.st_size == 0:
+        cprint( "Success", "green" )
+    else:
+        cprint( "Failure", "red" )
+
+    # Cleans up
+    fin.close()
+    fout.close()
+    fdiff.close()
+
+    os.remove(test_actual_output_file_name)
+    os.remove(fileDiff)
+
+# Invoking the program entry point
+if __name__ == "__main__":
+    sys.exit(main())
 
 # vim: ft=python
