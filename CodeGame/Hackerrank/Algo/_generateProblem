@@ -50,6 +50,8 @@ if __name__ == "__main__":
     fcode = open(fname + FILE_SUFFIX_CODE, 'w')
     fcode.write(pythonCodeTemplate)
     os.chmod(fname + FILE_SUFFIX_CODE, 0o744)       # Permissions have to be in octal
+    print("In file " + fcode.name())
+    print("\n" + pythonCodeTemplate + "\n\n")
     fcode.close()
 
     # Have to check, the JSON is not always the same
@@ -68,6 +70,8 @@ if __name__ == "__main__":
     sampleInput = body[(startInput+6):endInput]
     fin         = open(fname + FILE_SUFFIX_IN, 'w')
     fin.write(sampleInput)
+    print("In file " + fin.name())
+    print("\n" + sampleInput + "\n\n")
     fin.close
 
     start        = body.upper().index(OUTPUT_TEXT)
@@ -77,6 +81,8 @@ if __name__ == "__main__":
     sampleOutput = body[(startOutput+6):endOutput]
     fout         = open(fname + FILE_SUFFIX_OUT, 'w')
     fout.write(sampleOutput)
+    print("In file " + fout.name())
+    print("\n" + sampleOutput + "\n\n")
     fout.close
 
 def getFileName(pbName):
