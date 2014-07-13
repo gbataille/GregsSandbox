@@ -1,0 +1,11 @@
+#!/bin/zsh
+set -x
+
+mv *.* warmup
+git add .
+git commit -m 'One more problem'
+git push
+
+set +x
+
+# vim: ft=zsh
