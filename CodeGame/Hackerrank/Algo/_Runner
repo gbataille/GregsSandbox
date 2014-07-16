@@ -45,9 +45,9 @@ def executeUseCase(pbName, useCase):
     # Gets the pass / fail
     s = os.stat(fileDiff)
     if s.st_size == 0:
-        cprint( "Success", "green" )
+        cprint( "  Success", "green" )
     else:
-        cprint( "Failure", "red" )
+        cprint( "  Failure", "red" )
 
     # Cleans up
     fin.close()

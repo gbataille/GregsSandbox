@@ -4,6 +4,7 @@ import sys
 import json
 import re
 import os
+from termcolor import colored, cprint
 
 INPUT_TEXT       = "SAMPLE INPUT"
 OUTPUT_TEXT      = "SAMPLE OUTPUT"
@@ -51,7 +52,7 @@ if __name__ == "__main__":
     fcode = open(fname + FILE_SUFFIX_CODE, 'w')
     fcode.write(pythonCodeTemplate)
     os.chmod(fname + FILE_SUFFIX_CODE, 0o744)       # Permissions have to be in octal
-    print("In file " + fname + FILE_SUFFIX_CODE)
+    cprint("In file " + fname + FILE_SUFFIX_CODE, "green")
     print("\n" + pythonCodeTemplate + "\n\n")
     fcode.close()
 
@@ -79,7 +80,7 @@ def parseUseCase(content, fname, number):
     finname     = fname + FILE_SUFFIX_TEST + str(number) + FILE_EXT_IN
     fin         = open(finname, 'w')
     fin.write(sampleInput)
-    print("In file " + finname)
+    cprint("In file " + finname, "green")
     print("\n" + sampleInput + "\n\n")
     fin.close
 
@@ -91,7 +92,7 @@ def parseUseCase(content, fname, number):
     foutname     = fname + FILE_SUFFIX_TEST + str(number) + FILE_EXT_OUT
     fout         = open(foutname, 'w')
     fout.write(sampleOutput)
-    print("In file " + foutname)
+    cprint("In file " + foutname, "green")
     print("\n" + sampleOutput + "\n\n")
     fout.close
 
