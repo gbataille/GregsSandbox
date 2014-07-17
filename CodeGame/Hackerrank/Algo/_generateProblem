@@ -9,6 +9,9 @@ from termcolor import colored, cprint
 INPUT_TEXT       = "SAMPLE INPUT"
 OUTPUT_TEXT      = "SAMPLE OUTPUT"
 EXPLANATION      = "EXPLANATION"
+PATTERN_TOTAL    = r"Sample Input.*Sample Output.*?<code>.*?<\/code>"
+PATTERN_INPUT    = r"Sample Input.*?<code>.*?<\/code>"
+PATTERN_OUTPUT   = r"Sample Output.*?<code>.*?<\/code>"
 BASE_URL         = "https://www.hackerrank.com/rest/contests/master/challenges/"
 FILE_SUFFIX_CODE = ".py"
 FILE_SUFFIX_TEST = "_test"
@@ -63,6 +66,8 @@ if __name__ == "__main__":
                 pythonCodeTemplate += jsonData["model"]["_data"]["python3_template"]
 
     body  = jsonData["model"]["body_html"]
+    m = re.search(PATTERN_TOTAL, body, re.DOTALL)
+    body = body[m.start():m.end()]
 
     useCaseNumber = 0
     while body.upper().find(INPUT_TEXT) != -1:
@@ -70,9 +75,8 @@ if __name__ == "__main__":
         useCaseNumber += 1
 
 def parseUseCase(content, fname, number):
-    start = content.upper().index(INPUT_TEXT)
-    end   = content.upper().index(EXPLANATION)
-    body  = content[start:end]
+    m = re.search(PATTERN_INPUT, content, re.DOTALL)
+    body  = content[m.start():m.end()]
 
     startInput  = body.index("<code>")
     endInput    = body.index("</code>")
@@ -84,8 +88,8 @@ def parseUseCase(content, fname, number):
     print("\n" + sampleInput + "\n\n")
     fin.close
 
-    start        = body.upper().index(OUTPUT_TEXT)
-    body         = body[start:]
+    m = re.search(PATTERN_OUTPUT, content, re.DOTALL)
+    body  = content[m.start():m.end()]
     startOutput  = body.index("<code>")
     endOutput    = body.index("</code>")
     sampleOutput = body[(startOutput+6):endOutput]
@@ -96,7 +100,7 @@ def parseUseCase(content, fname, number):
     print("\n" + sampleOutput + "\n\n")
     fout.close
 
-    return content[end + len(EXPLANATION):]
+    return content[m.end():]
 
 def getFileName(pbName):
     pbName = pbName.replace('-', '_')
