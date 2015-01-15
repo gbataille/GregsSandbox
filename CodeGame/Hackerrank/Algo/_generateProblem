@@ -13,6 +13,7 @@ PATTERN_TOTAL    = r"Sample Input.*Sample Output.*?<code>.*?<\/code>"
 PATTERN_INPUT    = r"Sample Input.*?<code>.*?<\/code>"
 PATTERN_OUTPUT   = r"Sample Output.*?<code>.*?<\/code>"
 BASE_URL         = "https://www.hackerrank.com/rest/contests/master/challenges/"
+HUMAN_URL        = "https://www.hackerrank.com/challenges/"
 FILE_SUFFIX_CODE = ".py"
 FILE_SUFFIX_TEST = "_test"
 FILE_EXT_IN      = ".in"
@@ -36,6 +37,7 @@ def main(argv = None):
 
     pythonCodeTemplate = """\
 #!/usr/local/bin/python3
+#{}
 
 import sys
 
@@ -48,7 +50,7 @@ def main(argv = None):
 # Invoking the program entry point
 if __name__ == "__main__":
     sys.exit(main())
-"""
+""".format(HUMAN_URL + pbName)
 
     fname = getFileName(pbName)
 
