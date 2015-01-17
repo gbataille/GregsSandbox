@@ -49,6 +49,9 @@ def main(argv = None):
 
 
 
+def printIntList(ar):
+    print(' '.join(list(map(str, ar))))
+
 # Invoking the program entry point
 if __name__ == "__main__":
     sys.exit(main())
