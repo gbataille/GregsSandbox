@@ -6,6 +6,8 @@ import re
 import os
 from termcolor import colored, cprint
 
+DEBUG = 0
+
 INPUT_TEXT       = "SAMPLE INPUT"
 OUTPUT_TEXT      = "SAMPLE OUTPUT"
 EXPLANATION      = "EXPLANATION"
@@ -68,6 +70,7 @@ if __name__ == "__main__":
                 pythonCodeTemplate += jsonData["model"]["_data"]["python3_template"]
 
     body  = jsonData["model"]["body_html"]
+    if DEBUG: print(body)
     m = re.search(PATTERN_TOTAL, body, re.DOTALL)
     body = body[m.start():m.end()]
 
