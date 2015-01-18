@@ -49,6 +49,9 @@ def main(argv = None):
 
 
 
+def parseIntListOnStdin():
+    return list(map(int, input().split(' ')))
+
 def printIntList(ar):
     print(' '.join(list(map(str, ar))))
 
