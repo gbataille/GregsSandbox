@@ -1,0 +1,23 @@
+#!/usr/local/bin/python3
+import sys
+from os.path import isfile
+import os
+
+def main(argv = None):
+  if argv is None:
+    argv = sys.argv
+
+  pb = argv[1]
+  smallFname = "/Users/gbataille/Downloads/" + pb + "-small-practice.in"
+  largeFname = "/Users/gbataille/Downloads/" + pb + "-large-practice.in"
+  if isfile(smallFname):
+    os.rename(smallFname, pb + ".in")
+    print("Moved small file")
+  elif isfile(largeFname):
+    os.rename(largeFname, pb + ".in")
+    print("Moved large file")
+  else:
+    print("File not found")
+
+if __name__ == "__main__":
+  sys.exit(main())
