@@ -1,6 +1,8 @@
 #!/usr/local/bin/python3
 import sys
 
+DEBUG = True
+
 def readCase(fin):
   return 
 
@@ -67,6 +69,10 @@ def outputStr(s, fout):
 
 def outputInt(i, fout):
   outputStr(str(i), fout)
+
+def p(s):
+  if DEBUG:
+    print(s)
 
 # Main invoke
 if __name__ == "__main__":

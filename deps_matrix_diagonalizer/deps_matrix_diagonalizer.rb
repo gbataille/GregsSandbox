@@ -53,7 +53,9 @@ class DepsMatrixDiagonalizer
       @csv_lines[i] = line
     end
 
-    # Change the index
+    # Indexes are 1 based
+    a += 1
+    b += 1
     @line_index.each_key do |key|
       index = @line_index[key]
       if index == a
@@ -70,6 +72,9 @@ class DepsMatrixDiagonalizer
     @csv_lines.insert(b, line)
 
     # Change the index
+    # Indexes are 1 based
+    a += 1
+    b += 1
     @column_index.each_key do |key|
       index = @column_index[key]
       if index == a
@@ -96,7 +101,7 @@ class DepsMatrixDiagonalizer
     @csv_lines = new_lines
 
     # Lines and columns are now ordered the same way
-    @line_index = @column_index
+    @line_index = @column_index.clone
   end
 
   def add_missing_columns

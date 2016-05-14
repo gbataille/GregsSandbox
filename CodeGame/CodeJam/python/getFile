@@ -8,14 +8,10 @@ def main(argv = None):
     argv = sys.argv
 
   pb = argv[1]
-  smallFname = "/Users/gbataille/Downloads/" + pb + "-small-practice.in"
-  largeFname = "/Users/gbataille/Downloads/" + pb + "-large-practice.in"
+  smallFname = "/Users/gbataille/Downloads/" + pb + "*.in"
   if isfile(smallFname):
     os.rename(smallFname, pb + ".in")
     print("Moved small file")
-  elif isfile(largeFname):
-    os.rename(largeFname, pb + ".in")
-    print("Moved large file")
   else:
     print("File not found")
 

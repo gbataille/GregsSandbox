@@ -1,0 +1,3 @@
+kibana
+postgres
+elasticsearch
