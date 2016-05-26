@@ -8,37 +8,37 @@ def primes(n):
     [2, 3, 5, 7]
     """
 
-    return [x[0] for x in enumerate(sieve(n)) if x[1]]
+    return [x[0] for x in enumerate(_sieve(n)[0:n+1]) if x[1]]
 
 
-def sieve(n, resetCache=False):
+def _sieve(n, resetCache=False):
     """
-    >>> sieve(10, resetCache=True)
+    >>> _sieve(10, resetCache=True)
     [False, False, True, True, False, True, False, True, False, False, False]
     """
 
     # Sieve : whether a number N is prime or not is stored at index N
-    if not hasattr(sieve, 'cache') or resetCache:
-        sieve.cache = [False, False]
+    if not hasattr(_sieve, 'cache') or resetCache:
+        _sieve.cache = [False, False]
 
-    previousSieveLen = len(sieve.cache)
+    previousSieveLen = len(_sieve.cache)
 
     # n+1 to account for 0 taking 1 space
     if previousSieveLen < n + 1:
-        sieve.cache.extend(islice(repeat(True), n - previousSieveLen + 1))
+        _sieve.cache.extend(islice(repeat(True), n - previousSieveLen + 1))
         for num in range(2, n):
             # Take all the numbers. If they are prime (still True), remove
             # (mark as False) all their multiples in the extension
-            if sieve.cache[num]:
+            if _sieve.cache[num]:
                 # smallest multiple of num in the extension. Disallow 1 since
                 # it would mark num itself as not prime
                 smallest = (int((previousSieveLen - 1)/num) + 1) * num
                 smallest = max(smallest, 2 * num)
 
                 for multiple in range(smallest, n + 1, num):
-                    sieve.cache[multiple] = False
+                    _sieve.cache[multiple] = False
 
-    return sieve.cache[0:n+1]
+    return _sieve.cache
 
 
 def isPrime(n):
@@ -61,7 +61,7 @@ def isPrime(n):
     if n < 2:
         return False
     else:
-        return sieve(n)[n]
+        return _sieve(n)[n]
 
 
 def primeFactors(n):
