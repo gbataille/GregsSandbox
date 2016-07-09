@@ -2,16 +2,16 @@ from __future__ import division
 from itertools import islice, repeat
 
 
-def primes(n):
+def primes(n, DEBUG=False):
     """ Get all primes smaller than n
     >>> primes(10)
     [2, 3, 5, 7]
     """
 
-    return [x[0] for x in enumerate(_sieve(n)[0:n+1]) if x[1]]
+    return [x[0] for x in enumerate(_sieve(n, DEBUG=DEBUG)[0:n+1]) if x[1]]
 
 
-def _sieve(n, resetCache=False):
+def _sieve(n, resetCache=False, DEBUG=False):
     """
     >>> _sieve(10, resetCache=True)
     [False, False, True, True, False, True, False, True, False, False, False]
@@ -25,6 +25,9 @@ def _sieve(n, resetCache=False):
 
     # n+1 to account for 0 taking 1 space
     if previousSieveLen < n + 1:
+        if DEBUG:
+            print("prime._sieve - cache miss for n = ", n)
+
         _sieve.cache.extend(islice(repeat(True), n - previousSieveLen + 1))
         for num in range(2, n):
             # Take all the numbers. If they are prime (still True), remove
@@ -38,10 +41,17 @@ def _sieve(n, resetCache=False):
                 for multiple in range(smallest, n + 1, num):
                     _sieve.cache[multiple] = False
 
+        if DEBUG:
+            print("prime._sieve - DONE")
+
     return _sieve.cache
 
 
-def isPrime(n):
+def isPrimeMillerRabin(n, DEBUG=False):
+    return False
+
+
+def isPrime(n, DEBUG=False):
     """
     >>> isPrime(0)
     False
@@ -61,7 +71,7 @@ def isPrime(n):
     if n < 2:
         return False
     else:
-        return _sieve(n)[n]
+        return _sieve(n, DEBUG=DEBUG)[n]
 
 
 def primeFactors(n):
